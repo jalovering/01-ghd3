@@ -7,6 +7,7 @@
 <script>
   world_width = 500
   world_height = 500
+  trunk_width = 40
   console.log(d3); // test if d3 is loaded
 
   var data = [
@@ -21,12 +22,12 @@
 
   // Trunk
   svg.append('rect')
-    .attr('x', world_width/2 - 5)
+    .attr('x', world_width/2 - trunk_width/2)
     .attr('y', 250)
-    .attr('width', 10)
+    .attr('width', trunk_width)
     .attr('height', 200)
-    .attr('stroke', 'black')
-    .attr('fill', 'brown')
+    .attr('stroke', '#363300')
+    .attr('fill', '#663300')
 
   // Foliage
   d3.csv("leaves.csv").then(function(leaves){
@@ -56,7 +57,18 @@
       // .attr('cx', function (d) {console.log(d); return xscale(d); })
       // .attr('cy', function (d) {console.log(d); return yscale(d); })
       .attr('r', 10)
-      .style('fill', 'green')
+      // .style('fill', 'green')
+      .style('fill', function (d) {
+                                    if (d.color == 0){
+                                      return 'red'
+                                  } else if (d.color == 1){
+                                      return '#009933'
+                                  } else if (d.color == 2){
+                                      return '#006400'
+                                  } else if (d.color == 3){
+                                      return '#006400'
+                                  } else if (d.color == 4){
+                                      return '#003300'}})
   })
 
 
