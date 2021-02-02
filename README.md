@@ -8,9 +8,10 @@ Josh Lovering
 For this assignment, I chose to create an apple tree to gain experience creating different primitives. I generated random data and use those points to create leaves, which required me to learn how to import data, similarly to creating a scatterplot.
 
 Here is the first view of the project:
-![First View](/1.png)
+![First View](1.png)
+
 Here is a view showing the interactive aspects of the project:
-![Interactive View](/2.png)
+![Interactive View](2.png)
 
 # Referenced Code:
 1. https://bl.ocks.org/d3noob/5680dd0089abdc5b15f188d5efe48852
