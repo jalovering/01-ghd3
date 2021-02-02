@@ -1,18 +1,31 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <svg id="vis"></svg>
-<!-- <svg id="rect"></svg> -->
-<!-- <svg id="circle"></svg> -->
 
 <script>
   world_width = 500
   world_height = 500
   trunk_width = 40
-  console.log(d3); // test if d3 is loaded
 
   var svg = d3.select('#vis')
       .attr('width', world_width)
       .attr('height', world_height)
+
+  // Ground
+  svg.append('line')
+    .style('stroke', 'green')
+    .attr("stroke-width", 5)
+    .attr('x1', 0)
+    .attr('y1', 500)
+    .attr('x2', 500)
+    .attr('y2', 500);
+  svg.append('line')
+    .style('stroke', 'green')
+    .attr("stroke-width", 1)
+    .attr('x1', 200)
+    .attr('y1', 450)
+    .attr('x2', 300)
+    .attr('y2', 450)
 
   // Trunk
   svg.append('rect')
@@ -34,9 +47,9 @@
     .attr('width', 10)
     .attr('height', 200)
     .attr('fill', '#453321')
+
   // Owl Hole
   svg.append('polygon')
-    // .attr("points", "245,310 235,340 250,400 255,370 260,340")
     .attr('points', "235,340 240,380 250,385 265,382, 263,360, 255,335")
     .attr('stroke', '#30261d')
     .attr('fill', '#3b2611')
@@ -47,7 +60,6 @@
       d3.select(this).attr('stroke', '#30261d');
     })
     .on('click', function() {
-
       svg.append('circle')
         .attr('cx', 244)
         .attr('cy', 350)
@@ -69,16 +81,10 @@
         .attr('fill', '#ffcc00')
 
     })
-    
+
   // Foliage
   d3.csv("leaves.csv").then(function(leaves){
-    console.log(leaves)
-
-    // leaves.forEach(function(d) {
-    //     d.xleaves = d.xleaves;
-    //     d.yleaves = d.yleaves;
-    // });
-
+    
     // Set scale
     var xscale = d3.scaleLinear()
       .domain([0, world_width])
@@ -112,18 +118,14 @@
       // Chance of leaves/apples falling on mouseover
       .on('mouseover', function(d) {
         var leaf = d3.select(this)
-        console.log("a", leaf)
 
-        randFall = Math.floor(Math.random() * 5) // random int from 0-5
+        randFall = Math.floor(Math.random() * 4) // random int from 0-4
         if (randFall == 0) {
           function fallLoop(leaf) {
-            console.log("b", leaf)
 
             setTimeout(function() {
-              console.log("c", leaf)
-              console.log("c", leaf.attr('cy'))
-
-              if (leaf.attr('cy') <= world_height) { // if leaf is above ground
+              var grounds = [450,455,460,465,470,475,480,485,490,495,500]
+              if (leaf.attr('cy') <= grounds[Math.floor(Math.random() * grounds.length)]) { // if leaf is above ground
                 if (leaf.attr('fill') == 'red') {
                   var new_cy = +leaf.attr('cy') + +4 // increase y alot if apple
                 } else {
@@ -153,9 +155,5 @@
       })
 
   }) // close foliage function
-
-
-  // Add Lines
-  // Add Polygons
   
 </script>
